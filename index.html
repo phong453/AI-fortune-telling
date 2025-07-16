@@ -158,28 +158,46 @@
       return "Không rõ";
     }
 
-    function showResult() {
-      const name = document.getElementById("name").value.trim();
-      const gender = document.getElementById("gender").value;
-      const birthdate = document.getElementById("birthdate").value;
+  function showResult() {
+  const name = document.getElementById("name").value.trim();
+  const gender = document.getElementById("gender").value;
+  const birthdate = document.getElementById("birthdate").value;
 
-      if (!name || !birthdate) {
-        alert("Nhập tên và ngày sinh đầy đủ nhé 😅");
-        return;
-      }
+  if (!name || !birthdate) {
+    alert("Nhập tên và ngày sinh đầy đủ nha 😅");
+    return;
+  }
 
-      const [year, month, day] = birthdate.split("-").map(Number);
-      const zodiac = getZodiac(month, day);
-      const desc = descriptions[gender][Math.floor(Math.random() * 4)];
-      const img = images[gender][Math.floor(Math.random() * 4)];
-      const link = adLinks[gender];
+  const [year, month, day] = birthdate.split("-").map(Number);
+  const zodiac = getZodiac(month, day);
 
-      document.getElementById("description").innerText = `${name}, ${desc}`;
-      document.getElementById("zodiac").innerText = `♈ Cung hoàng đạo: ${zodiac}`;
-      document.getElementById("aiImage").src = img;
-      document.getElementById("viewFull").href = link;
-      document.getElementById("result").style.display = "block";
-    }
+  // Tạo mã định danh cố định dựa trên tên + ngày sinh + giới tính
+  const key = name.toLowerCase() + birthdate + gender;
+  const hash = stableHash(key);
+
+  const descList = descriptions[gender];
+  const imgList = images[gender];
+
+  const desc = descList[hash % descList.length];
+  const img = imgList[hash % imgList.length];
+  const link = adLinks[gender];
+
+  document.getElementById("description").innerText = `${name}, ${desc}`;
+  document.getElementById("zodiac").innerText = `♈ Cung hoàng đạo: ${zodiac}`;
+  document.getElementById("aiImage").src = img;
+  document.getElementById("viewFull").href = link;
+
+  document.getElementById("result").style.display = "block";
+}
+
+function stableHash(str) {
+  let hash = 0;
+  for (let i = 0; i < str.length; i++) {
+    hash = (hash << 5) - hash + str.charCodeAt(i);
+    hash |= 0;
+  }
+  return Math.abs(hash);
+}
   </script>
 </body>
 </html>
