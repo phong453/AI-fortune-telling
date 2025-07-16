@@ -1,122 +1,130 @@
- <!DOCTYPE html>
+
+<!DOCTYPE html>
 <html lang="vi">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Bói AI theo cung hoàng đạo</title>
+  <title>Bói AI Pro</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
     body {
-      background: linear-gradient(135deg, #1e1e1e, #2b2b2b);
+      background: linear-gradient(to bottom right, #1e1e2f, #2c2c3c);
       color: #fff;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 40px 20px;
+    }
+    .container {
+      background: #292942;
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 0 20px rgba(255, 105, 180, 0.4);
+      width: 100%;
+      max-width: 500px;
       text-align: center;
-      padding: 40px;
     }
     h1 {
-      font-size: 2.5rem;
+      font-size: 28px;
       color: #ff69b4;
-    }
-    p {
-      font-size: 1.2rem;
+      margin-bottom: 20px;
     }
     input, select, button {
-      padding: 12px 20px;
-      margin: 10px;
-      font-size: 1rem;
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      font-size: 16px;
+      border-radius: 8px;
       border: none;
-      border-radius: 10px;
       outline: none;
     }
-    input[type="date"] {
-      width: 180px;
-    }
     input, select {
-      width: 250px;
+      background: #3a3a55;
+      color: #fff;
     }
     button {
-      background: linear-gradient(135deg, #ff69b4, #ff1493);
-      color: white;
+      background: #ff69b4;
+      color: #fff;
       cursor: pointer;
       transition: background 0.3s ease;
     }
     button:hover {
-      background: linear-gradient(135deg, #ff1493, #c71585);
+      background: #ff85c1;
     }
     #result {
-      margin-top: 40px;
-      padding: 20px;
-      background: rgba(255, 255, 255, 0.05);
-      border-radius: 20px;
-      box-shadow: 0 0 10px rgba(255, 105, 180, 0.5);
+      margin-top: 25px;
+      display: none;
     }
-    img {
-      max-width: 300px;
-      border-radius: 16px;
-      margin-top: 20px;
-      box-shadow: 0 0 20px rgba(255, 105, 180, 0.5);
+    #result img {
+      max-width: 100%;
+      border-radius: 12px;
+      margin-top: 15px;
+      box-shadow: 0 0 10px #ff69b4;
     }
-    a {
+    #viewFull {
       display: inline-block;
       margin-top: 15px;
-      color: #00ffff;
+      color: #ffd9ec;
       text-decoration: none;
-    }
-    a:hover {
-      text-decoration: underline;
     }
   </style>
 </head>
 <body>
-  <h1>🔮 Bói AI theo cung hoàng đạo 🔮</h1>
-  <p>Nhập tên, giới tính và ngày sinh để xem cung hoàng đạo và chân dung AI của bạn!</p>
-  <input type="text" id="name" placeholder="Nhập tên..." />
-  <select id="gender">
-    <option value="female">Nữ</option>
-    <option value="male">Nam</option>
-  </select>
-  <input type="date" id="birthdate" />
-  <br/>
-  <button onclick="showResult()">Xem chân dung AI</button>
+  <div class="container">
+    <h1>🔮 Bói AI từ tên & ngày sinh 🔮</h1>
+    <input type="text" id="name" placeholder="Nhập tên của bạn..." />
+    <select id="gender">
+      <option value="female">Nữ</option>
+      <option value="male">Nam</option>
+    </select>
+    <input type="date" id="birthdate" />
+    <button onclick="showResult()">Xem kết quả</button>
 
-  <div id="result" style="display: none;">
-    <h2>Kết quả:</h2>
-    <p id="description"></p>
-    <p id="zodiac"></p>
-    <img id="aiImage" src="" alt="Ảnh AI"/>
-    <br/>
-    <a id="viewFull" href="#" target="_blank">
-      👉 Xem ảnh đầy đủ tại đây 
-    </a>
+    <div id="result">
+      <h2 id="description"></h2>
+      <p id="zodiac"></p>
+      <img id="aiImage" src="" alt="Ảnh AI"/>
+      <a id="viewFull" href="#" target="_blank">
+        👉 Xem ảnh đầy đủ tại đây (link có quảng cáo)
+      </a>
+    </div>
   </div>
 
   <script>
     const descriptions = {
       female: [
-        "Bạn là cô gái nhẹ nhàng, sống nội tâm và luôn quan tâm đến người khác.",
-        "Bạn là người độc lập, mạnh mẽ nhưng đầy cảm xúc.",
-        "Bạn thông minh, tinh tế và có tâm hồn nghệ sĩ.",
-        "Bạn có trái tim ấm áp, nhưng đôi khi hơi mộng mơ."
+        "bạn là cô gái nhẹ nhàng, sống nội tâm và luôn quan tâm đến người khác.",
+        "bạn là người độc lập, mạnh mẽ nhưng đầy cảm xúc.",
+        "bạn thông minh, tinh tế và có tâm hồn nghệ sĩ.",
+        "bạn có trái tim ấm áp, nhưng đôi khi hơi mộng mơ."
       ],
       male: [
-        "Bạn là chàng trai lãng tử, luôn sống theo cảm xúc của mình.",
-        "Bạn lạnh lùng, ít nói nhưng rất sâu sắc.",
-        "Bạn mạnh mẽ, quyết đoán và luôn bảo vệ người mình yêu thương.",
-        "Bạn là người hài hước, vui vẻ và luôn đem lại năng lượng tích cực."
+        "bạn là chàng trai lãng tử, luôn sống theo cảm xúc của mình.",
+        "bạn lạnh lùng, ít nói nhưng rất sâu sắc.",
+        "bạn mạnh mẽ, quyết đoán và luôn bảo vệ người mình yêu thương.",
+        "bạn là người hài hước, vui vẻ và luôn đem lại năng lượng tích cực."
       ]
     };
 
     const images = {
       female: [
-        "https://i.imgur.com/azAXU1L.jpg",
-        "https://i.imgur.com/z6M0pq9.jpg",
-        "https://i.imgur.com/TePB79S.jpg",
-        "https://i.imgur.com/6T0j6c4.jpg"
+        "https://i.ibb.co/CMkM1kd/female1.jpg",
+        "https://i.ibb.co/nRmnyM9/female2.jpg",
+        "https://i.ibb.co/59VR2vS/female3.jpg",
+        "https://i.ibb.co/ZgL8pbt/female4.jpg"
       ],
       male: [
-        "https://i.imgur.com/epIuFzv.jpg",
-        "https://i.imgur.com/JBvUKTI.jpg",
-        "https://i.imgur.com/zV4ZJZi.jpg",
-        "https://i.imgur.com/9dbMKnK.jpg"
+        "https://i.ibb.co/3zZy5mD/male1.jpg",
+        "https://i.ibb.co/yyQyt8j/male2.jpg",
+        "https://i.ibb.co/ByQMBp8/male3.jpg",
+        "https://i.ibb.co/dLhR1dG/male4.jpg"
       ]
     };
 
@@ -125,52 +133,52 @@
       male: "https://exe.io/HWcPA"
     };
 
-    function getZodiac(date) {
-      const d = new Date(date);
-      const day = d.getDate();
-      const month = d.getMonth() + 1;
-
-      if ((month == 1 && day >= 20) || (month == 2 && day <= 18)) return "Bảo Bình (Aquarius)";
-      if ((month == 2 && day >= 19) || (month == 3 && day <= 20)) return "Song Ngư (Pisces)";
-      if ((month == 3 && day >= 21) || (month == 4 && day <= 19)) return "Bạch Dương (Aries)";
-      if ((month == 4 && day >= 20) || (month == 5 && day <= 20)) return "Kim Ngưu (Taurus)";
-      if ((month == 5 && day >= 21) || (month == 6 && day <= 20)) return "Song Tử (Gemini)";
-      if ((month == 6 && day >= 21) || (month == 7 && day <= 22)) return "Cự Giải (Cancer)";
-      if ((month == 7 && day >= 23) || (month == 8 && day <= 22)) return "Sư Tử (Leo)";
-      if ((month == 8 && day >= 23) || (month == 9 && day <= 22)) return "Xử Nữ (Virgo)";
-      if ((month == 9 && day >= 23) || (month == 10 && day <= 22)) return "Thiên Bình (Libra)";
-      if ((month == 10 && day >= 23) || (month == 11 && day <= 21)) return "Bọ Cạp (Scorpio)";
-      if ((month == 11 && day >= 22) || (month == 12 && day <= 21)) return "Nhân Mã (Sagittarius)";
-      return "Ma Kết (Capricorn)";
+    function getZodiac(month, day) {
+      const zodiacs = [
+        { sign: "Ma Kết", from: [12, 22], to: [1, 19] },
+        { sign: "Bảo Bình", from: [1, 20], to: [2, 18] },
+        { sign: "Song Ngư", from: [2, 19], to: [3, 20] },
+        { sign: "Bạch Dương", from: [3, 21], to: [4, 19] },
+        { sign: "Kim Ngưu", from: [4, 20], to: [5, 20] },
+        { sign: "Song Tử", from: [5, 21], to: [6, 20] },
+        { sign: "Cự Giải", from: [6, 21], to: [7, 22] },
+        { sign: "Sư Tử", from: [7, 23], to: [8, 22] },
+        { sign: "Xử Nữ", from: [8, 23], to: [9, 22] },
+        { sign: "Thiên Bình", from: [9, 23], to: [10, 22] },
+        { sign: "Bọ Cạp", from: [10, 23], to: [11, 21] },
+        { sign: "Nhân Mã", from: [11, 22], to: [12, 21] }
+      ];
+      for (let z of zodiacs) {
+        let [fM, fD] = z.from;
+        let [tM, tD] = z.to;
+        if ((month === fM && day >= fD) || (month === tM && day <= tD)) {
+          return z.sign;
+        }
+      }
+      return "Không rõ";
     }
 
     function showResult() {
-      const name = document.getElementById("name").value;
+      const name = document.getElementById("name").value.trim();
       const gender = document.getElementById("gender").value;
       const birthdate = document.getElementById("birthdate").value;
 
       if (!name || !birthdate) {
-        alert("Vui lòng nhập đủ tên và ngày sinh nhé!");
+        alert("Nhập tên và ngày sinh đầy đủ nhé 😅");
         return;
       }
 
-      const zodiac = getZodiac(birthdate);
-      window.open(adLinks[gender], "_blank");
-      document.getElementById("result").style.display = "none";
+      const [year, month, day] = birthdate.split("-").map(Number);
+      const zodiac = getZodiac(month, day);
+      const desc = descriptions[gender][Math.floor(Math.random() * 4)];
+      const img = images[gender][Math.floor(Math.random() * 4)];
+      const link = adLinks[gender];
 
-      setTimeout(() => {
-        const descList = descriptions[gender];
-        const imgList = images[gender];
-        const desc = descList[Math.floor(Math.random() * descList.length)];
-        const img = imgList[Math.floor(Math.random() * imgList.length)];
-
-        document.getElementById("description").innerText = `${name}, ${desc}`;
-        document.getElementById("zodiac").innerText = `✨ Cung hoàng đạo: ${zodiac}`;
-        document.getElementById("aiImage").src = img;
-        document.getElementById("viewFull").href = img;
-
-        document.getElementById("result").style.display = "block";
-      }, 12000);
+      document.getElementById("description").innerText = `${name}, ${desc}`;
+      document.getElementById("zodiac").innerText = `♈ Cung hoàng đạo: ${zodiac}`;
+      document.getElementById("aiImage").src = img;
+      document.getElementById("viewFull").href = link;
+      document.getElementById("result").style.display = "block";
     }
   </script>
 </body>
